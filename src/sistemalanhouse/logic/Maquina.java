@@ -19,6 +19,7 @@ public class Maquina {
         this.mesa = mesa;
         this.numero = numero;
     }
+    
     @Override
     public String toString(){
         return hostname;

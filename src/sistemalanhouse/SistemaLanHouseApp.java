@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import sistemalanhouse.auxiliar.CriaMaquinas;
+import sistemalanhouse.auxiliar.CriaUsuarios;
 import sistemalanhouse.logic.BD;
 import sistemalanhouse.logic.Cliente;
 import sistemalanhouse.logic.Maquina;
@@ -25,6 +26,7 @@ public class SistemaLanHouseApp extends SingleFrameApplication {
         
         //Gera automaticamente!
         CriaMaquinas creator = new CriaMaquinas(bd);
+        CriaUsuarios creatorU = new CriaUsuarios(bd);
         show(new SistemaLanHouseView(this, bd));
     }
 
