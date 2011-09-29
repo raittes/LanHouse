@@ -119,10 +119,6 @@ public class SistemaLanHouseView extends FrameView {
         Principal = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaEmUso = new javax.swing.JTable();
-        javax.swing.DefaultComboBoxModel modMaq = new javax.swing.DefaultComboBoxModel();
-        comboMaquinas = new javax.swing.JComboBox();
-        javax.swing.DefaultComboBoxModel modCli = new javax.swing.DefaultComboBoxModel();
-        comboCliente = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -137,11 +133,15 @@ public class SistemaLanHouseView extends FrameView {
         jLabel7 = new javax.swing.JLabel();
         fHoraFim = new javax.swing.JTextField();
         fMinFim = new javax.swing.JTextField();
+        autoCompleteMaquina = new autocompletardso2.AutoCompleteBean();
+        comboCliente = new autocompletardso2.AutoCompleteBean();
         ListarClientes = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaListaClientes = new javax.swing.JTable();
         RegistroPagamento = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaRegistroPagamento = new javax.swing.JTable();
         CadastroCliente = new javax.swing.JPanel();
         nomeCliente = new javax.swing.JTextField();
         cpfCliente = new javax.swing.JTextField();
@@ -229,27 +229,6 @@ public class SistemaLanHouseView extends FrameView {
         tabelaEmUso.getColumnModel().getColumn(2).setResizable(false);
         tabelaEmUso.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("tabelaEmUso.columnModel.title2")); // NOI18N
 
-        comboMaquinas.setModel(modMaq);
-        comboMaquinas.setName("comboMaquinas"); // NOI18N
-        comboMaquinas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboMaquinasMouseClicked(evt);
-            }
-        });
-        comboMaquinas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboMaquinasActionPerformed(evt);
-            }
-        });
-
-        comboCliente.setModel(modCli);
-        comboCliente.setName("comboCliente"); // NOI18N
-        comboCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                comboClienteMousePressed(evt);
-            }
-        });
-
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
@@ -304,6 +283,14 @@ public class SistemaLanHouseView extends FrameView {
         fMinFim.setText(resourceMap.getString("fMinFim.text")); // NOI18N
         fMinFim.setName("fMinFim"); // NOI18N
 
+        autoCompleteMaquina.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        autoCompleteMaquina.setName("autoCompleteMaquina"); // NOI18N
+        autoCompleteMaquina.setValores(bd.getMaquinas());
+
+        comboCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCliente.setName("comboCliente"); // NOI18N
+        comboCliente.setValores(bd.getClientes());
+
         javax.swing.GroupLayout PrincipalLayout = new javax.swing.GroupLayout(Principal);
         Principal.setLayout(PrincipalLayout);
         PrincipalLayout.setHorizontalGroup(
@@ -316,7 +303,7 @@ public class SistemaLanHouseView extends FrameView {
                     .addGroup(PrincipalLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
             .addGroup(PrincipalLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -327,9 +314,10 @@ public class SistemaLanHouseView extends FrameView {
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18))
                             .addComponent(jLabel2))
-                        .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(comboCliente, 0, 78, Short.MAX_VALUE)
-                            .addComponent(comboMaquinas, 0, 106, Short.MAX_VALUE)))
+                        .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(autoCompleteMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PrincipalLayout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(6, 6, 6)
@@ -339,10 +327,9 @@ public class SistemaLanHouseView extends FrameView {
                         .addGap(3, 3, 3)
                         .addComponent(fMin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PrincipalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
                         .addComponent(labelUsuario)
-                        .addGap(124, 124, 124))
+                        .addGap(287, 287, 287))
                     .addGroup(PrincipalLayout.createSequentialGroup()
                         .addGap(247, 247, 247)
                         .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,21 +350,21 @@ public class SistemaLanHouseView extends FrameView {
                 .addContainerGap()
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
                         .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboMaquinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(autoCompleteMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(fMinFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fHoraFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fHoraFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(PrincipalLayout.createSequentialGroup()
                         .addComponent(labelUsuario)
@@ -433,37 +420,67 @@ public class SistemaLanHouseView extends FrameView {
         ListarClientes.setLayout(ListarClientesLayout);
         ListarClientesLayout.setHorizontalGroup(
             ListarClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
         );
         ListarClientesLayout.setVerticalGroup(
             ListarClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ListarClientesLayout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         mainPanel.add(ListarClientes, "listarClientes");
 
         RegistroPagamento.setName("RegistroPagamento"); // NOI18N
 
+        jLabel3.setFont(resourceMap.getFont("jLabel3.font")); // NOI18N
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
+
+        jScrollPane4.setName("jScrollPane4"); // NOI18N
+
+        tabelaRegistroPagamento.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null}
+            },
+            new String [] {
+                "Cliente", "Entrada", "Saida", "Valor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaRegistroPagamento.setName("tabelaRegistroPagamento"); // NOI18N
+        jScrollPane4.setViewportView(tabelaRegistroPagamento);
+        tabelaRegistroPagamento.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("tabelaRegistroPagamento.columnModel.title0")); // NOI18N
+        tabelaRegistroPagamento.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("tabelaRegistroPagamento.columnModel.title1")); // NOI18N
+        tabelaRegistroPagamento.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("tabelaRegistroPagamento.columnModel.title2")); // NOI18N
+        tabelaRegistroPagamento.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("tabelaRegistroPagamento.columnModel.title3")); // NOI18N
 
         javax.swing.GroupLayout RegistroPagamentoLayout = new javax.swing.GroupLayout(RegistroPagamento);
         RegistroPagamento.setLayout(RegistroPagamentoLayout);
         RegistroPagamentoLayout.setHorizontalGroup(
             RegistroPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RegistroPagamentoLayout.createSequentialGroup()
-                .addGap(212, 212, 212)
-                .addComponent(jLabel3)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(RegistroPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
+                    .addComponent(jLabel3))
+                .addContainerGap())
         );
         RegistroPagamentoLayout.setVerticalGroup(
             RegistroPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RegistroPagamentoLayout.createSequentialGroup()
-                .addGap(142, 142, 142)
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         mainPanel.add(RegistroPagamento, "Pagamento");
@@ -535,7 +552,7 @@ public class SistemaLanHouseView extends FrameView {
                     .addGroup(CadastroClienteLayout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jLabel25)))
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
         CadastroClienteLayout.setVerticalGroup(
             CadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,7 +578,7 @@ public class SistemaLanHouseView extends FrameView {
                     .addComponent(jLabel21))
                 .addGap(29, 29, 29)
                 .addComponent(cadastroCliente)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         mainPanel.add(CadastroCliente, "Cliente");
@@ -626,7 +643,7 @@ public class SistemaLanHouseView extends FrameView {
                     .addComponent(campoMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         CadastroPCLayout.setVerticalGroup(
             CadastroPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -655,7 +672,7 @@ public class SistemaLanHouseView extends FrameView {
                     .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         mainPanel.add(CadastroPC, "PC");
@@ -711,7 +728,7 @@ public class SistemaLanHouseView extends FrameView {
                 .addGroup(RegistroUsoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         RegistroUsoLayout.setVerticalGroup(
             RegistroUsoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -720,7 +737,7 @@ public class SistemaLanHouseView extends FrameView {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         mainPanel.add(RegistroUso, "Uso");
@@ -834,11 +851,11 @@ public class SistemaLanHouseView extends FrameView {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -885,28 +902,25 @@ public class SistemaLanHouseView extends FrameView {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         cadastraNovaMaquina();
     
-        comboMaquinas.setModel(new javax.swing.DefaultComboBoxModel());
+        autoCompleteMaquina.setModel(new javax.swing.DefaultComboBoxModel());
         for(int i=0;i<bd.getMaquinas().size();i++){
-            ((javax.swing.DefaultComboBoxModel)comboMaquinas.getModel()).addElement(bd.getMaquinas().get(i));
+            ((javax.swing.DefaultComboBoxModel)autoCompleteMaquina.getModel()).addElement(bd.getMaquinas().get(i));
         } 
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void cadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroClienteActionPerformed
-        String nome = nomeCliente.getText();
-        float cpf = Float.parseFloat(cpfCliente.getText());
-        String email = emailCliente.getText();
-        long numero = Long.parseLong(numeroCliente.getText());
-        Cliente cliente = new Cliente(nome, cpf, email, numero);
-        bd.getClientes().add(cliente);
-          
-        insereNaTabela(cliente,tabelaListaClientes);
-        javax.swing.JOptionPane.showMessageDialog(null,nome+" cadastrado com sucesso!");
-        
+        cadastraNovoCliente();
+         comboCliente.setModel(new javax.swing.DefaultComboBoxModel());
+        for(int i=0;i<bd.getClientes().size();i++){
+            ((javax.swing.DefaultComboBoxModel)comboCliente.getModel()).addElement(bd.getClientes().get(i));
+        } 
+        ((java.awt.CardLayout)mainPanel.getLayout()).show(mainPanel,"Principal");
         
     }//GEN-LAST:event_cadastroClienteActionPerformed
 private void insereNaTabela(Cliente cli, javax.swing.JTable tabela){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel(); 
         modelo.addRow(new Object[] {cli.getNome(),cli.getCpf(),cli.getEmail(),cli.getTelefone()});
+        this.atualizaInterface();
         tabelaListaClientes.repaint();
     
     
@@ -919,20 +933,8 @@ private void insereNaTabela(Cliente cli, javax.swing.JTable tabela){
     ((java.awt.CardLayout)mainPanel.getLayout()).show(mainPanel,"listarClientes");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void comboMaquinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboMaquinasMouseClicked
-        //
-    }//GEN-LAST:event_comboMaquinasMouseClicked
-
-    private void comboMaquinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMaquinasActionPerformed
-
-    }//GEN-LAST:event_comboMaquinasActionPerformed
-
-    private void comboClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboClienteMousePressed
-        //;
-    }//GEN-LAST:event_comboClienteMousePressed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Sessao sessao = new Sessao((Maquina)comboMaquinas.getSelectedItem(),(Cliente)comboCliente.getSelectedItem());
+        Sessao sessao = new Sessao((Maquina)autoCompleteMaquina.getSelectedItem(),(Cliente)comboCliente.getSelectedItem());
         //umaSessao.setMaquina(null);
         //umaSessao.setCliente(null);
         sessao.setEntrada(new Hora(Integer.parseInt(fHora.getText()),Integer.parseInt(fMin.getText())));
@@ -954,12 +956,15 @@ private void insereNaTabela(Cliente cli, javax.swing.JTable tabela){
         Sessao sessao = (Sessao)tabelaEmUso.getValueAt(tabelaEmUso.getSelectedRow(), 0);
         sessao.setSaida(new Hora(Integer.parseInt(fHoraFim.getText()),Integer.parseInt(fMinFim.getText())));
         long tempo;
+        float TARIFA =1.99f;
         try {
             tempo = Calculadora.calculeTempo(sessao);
             DefaultTableModel registro = (DefaultTableModel) tabelaRegistro.getModel();
             registro.addRow(new Object[]{sessao.getCliente(),sessao.getMaquina(),sessao.getEntrada(),sessao.getSaida(),tempo});
             DefaultTableModel emUso = (DefaultTableModel) tabelaEmUso.getModel();
             emUso.removeRow(tabelaEmUso.getSelectedRow());
+            DefaultTableModel tregistroPagamento = (DefaultTableModel) tabelaRegistroPagamento.getModel();
+            tregistroPagamento.addRow(new Object[]{sessao.getCliente(),sessao.getEntrada(),sessao.getSaida(),"R$"+tempo*TARIFA});
             tabelaEmUso.repaint();
         } catch (FimMenorInicioHoraExcepition ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -973,14 +978,14 @@ private void insereNaTabela(Cliente cli, javax.swing.JTable tabela){
     private javax.swing.JPanel Principal;
     private javax.swing.JPanel RegistroPagamento;
     private javax.swing.JPanel RegistroUso;
+    private autocompletardso2.AutoCompleteBean autoCompleteMaquina;
     private javax.swing.JButton cadastroCliente;
     private javax.swing.JTextField campoHostname;
     private javax.swing.JTextField campoIP;
     private javax.swing.JTextField campoMAC;
     private javax.swing.JTextField campoMesa;
     private javax.swing.JTextField campoNumero;
-    private javax.swing.JComboBox comboCliente;
-    private javax.swing.JComboBox comboMaquinas;
+    private autocompletardso2.AutoCompleteBean comboCliente;
     private javax.swing.JTextField cpfCliente;
     private javax.swing.JTextField emailCliente;
     private javax.swing.JFormattedTextField fHora;
@@ -1022,6 +1027,7 @@ private void insereNaTabela(Cliente cli, javax.swing.JTable tabela){
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
@@ -1034,6 +1040,7 @@ private void insereNaTabela(Cliente cli, javax.swing.JTable tabela){
     private javax.swing.JTable tabelaEmUso;
     private javax.swing.JTable tabelaListaClientes;
     private javax.swing.JTable tabelaRegistro;
+    private javax.swing.JTable tabelaRegistroPagamento;
     // End of variables declaration//GEN-END:variables
 
     private final Timer messageTimer;
@@ -1052,6 +1059,13 @@ private void insereNaTabela(Cliente cli, javax.swing.JTable tabela){
         short num = Short.parseShort(campoNumero.getText());
         bd.getMaquinas().add(new Maquina(hostname,ip,mac,mesa,num));
     }
+    private void cadastraNovoCliente(){
+        String nome = nomeCliente.getText();
+        float cpf = Float.parseFloat(cpfCliente.getText());
+        int telefone = Integer.parseInt(numeroCliente.getText());
+        String email = emailCliente.getText();
+        bd.getClientes().add(new Cliente(nome, cpf, email, telefone));
+    }
 
     private void atualizaInterface() {
         //System.out.println("Atualizando combo");
@@ -1059,9 +1073,9 @@ private void insereNaTabela(Cliente cli, javax.swing.JTable tabela){
         for(int i=0;i<bd.getClientes().size();i++){
             ((javax.swing.DefaultComboBoxModel)comboCliente.getModel()).addElement(bd.getClientes().get(i));
         }
-        comboMaquinas.setModel(new javax.swing.DefaultComboBoxModel());
+        autoCompleteMaquina.setModel(new javax.swing.DefaultComboBoxModel());
         for(int i=0;i<bd.getMaquinas().size();i++){
-            ((javax.swing.DefaultComboBoxModel)comboMaquinas.getModel()).addElement(bd.getMaquinas().get(i));
+            ((javax.swing.DefaultComboBoxModel)autoCompleteMaquina.getModel()).addElement(bd.getMaquinas().get(i));
         }
    }
 }
